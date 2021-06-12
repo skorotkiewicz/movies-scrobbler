@@ -6,8 +6,6 @@ import axios from "axios"
 const CreateMovie = z.object({
   Title: z.string(),
   imdbID: z.string(),
-  // Year: z.string(),
-  // Poster: z.string() || undefined,
 })
 
 export default resolver.pipe(
@@ -20,7 +18,9 @@ export default resolver.pipe(
     let movie = await db.movie.findFirst({ where: { title: input.Title! } })
 
     if (!movie) {
-      let req = await axios.get(`https://www.omdbapi.com/?i=${input.imdbID}&apikey=4a3b711b`)
+      let req = await axios.get(
+        `https://www.omdbapi.com/?i=${input.imdbID}&apikey=${process.env.OMDB_API}`
+      )
       let src = req.data
 
       movie = await db.movie.create({

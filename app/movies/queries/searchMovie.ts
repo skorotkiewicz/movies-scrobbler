@@ -8,7 +8,7 @@ const SearchMovie = z.object({
 
 export default resolver.pipe(resolver.zod(SearchMovie), resolver.authorize(), async ({ title }) => {
   if (title.length > 0) {
-    let req = await axios.get(`https://www.omdbapi.com/?s=${title}&apikey=4a3b711b`)
+    let req = await axios.get(`https://www.omdbapi.com/?s=${title}&apikey=${process.env.OMDB_API}`)
 
     if (req.data.Response === "True") {
       return req.data.Search
