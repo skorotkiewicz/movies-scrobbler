@@ -12,7 +12,7 @@ export default resolver.pipe(
   resolver.authorize(),
   async ({ movieId, vote }, ctx) => {
     const movie = await db.userMovie.findFirst({
-      where: { movieId, userId: ctx.session.userId },
+      where: { id: movieId, userId: ctx.session.userId },
       select: { id: true, vote: true },
     })
 
@@ -23,7 +23,7 @@ export default resolver.pipe(
     }
 
     await db.userMovie.update({
-      where: { id: movie?.id },
+      where: { id: movieId },
       data: { vote },
     })
 

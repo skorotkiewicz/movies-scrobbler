@@ -47,7 +47,6 @@ const Vote = ({ movieId, select, user, session, refetch }) => {
           display: flex;
         }
         .votes {
-          width: 50%;
           font-size: 12px;
           border-bottom: 2px solid #ccc;
           border-right: 0px solid #ccc;
@@ -55,7 +54,7 @@ const Vote = ({ movieId, select, user, session, refetch }) => {
           border-left: 0px solid #ccc;
           margin: 5px;
           margin-top: 10px;
-          padding: 5px;
+          padding: 10px;
           cursor: pointer;
           text-align: center;
         }
