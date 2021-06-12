@@ -118,10 +118,6 @@ const NewMoviePage: BlitzPage | any = ({ refetch }) => {
         />
       </main>
       <style global jsx>{`
-        body {
-          font-family: Helvetica, sans-serif;
-        }
-
         main {
           align-items: center;
           margin: 20px;

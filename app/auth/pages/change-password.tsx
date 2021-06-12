@@ -49,6 +49,12 @@ const ChangePasswordPage: BlitzPage = () => {
           />
         </Form>
       )}
+
+      <style global jsx>{`
+        label {
+          margin: 20px;
+        }
+      `}</style>
     </div>
   )
 }

@@ -1,15 +1,76 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { usePaginatedQuery, useRouter, useMutation, useSession } from "blitz"
 import deleteMovie from "app/movies/mutations/deleteMovie"
+import voteMovie from "app/movies/mutations/voteMovie"
 import getMovies from "app/movies/queries/getMovies"
 import AddMovie from "app/movies/components/AddMovie"
 import { confirmAlert } from "react-confirm-alert"
 import "react-confirm-alert/src/react-confirm-alert.css"
 import moment from "moment"
 
-// type MoviesProps = {
-//   movies: []
-// }
-const ITEMS_PER_PAGE = 20
+const ITEMS_PER_PAGE = 40
+
+const Vote = ({ movieId, select, user, session, refetch }) => {
+  const [voteMovieMutation] = useMutation(voteMovie)
+
+  let arr = [
+    "🙂 I liked the movie.",
+    "😀 I liked the movie a lot.",
+    "❤️ I recommend the movie to everyone!",
+    "😕 I didn't like this movie.",
+  ]
+
+  return (
+    <div className="voteBox">
+      {user && select >= 0 && <div className="recommendation">{arr[select]}</div>}
+
+      {!user && session && (
+        <>
+          {arr.map((e, vote) => (
+            <div
+              onClick={async () => {
+                await voteMovieMutation({ movieId, vote })
+                refetch() // FIXME to not rerender all movies
+              }}
+              key={vote}
+              className={`votes ${select === vote && `selected`}`}
+            >
+              {e}
+            </div>
+          ))}
+        </>
+      )}
+
+      <style jsx>{`
+        .voteBox {
+          display: flex;
+        }
+        .votes {
+          width: 50%;
+          font-size: 12px;
+          border-bottom: 2px solid #ccc;
+          border-right: 0px solid #ccc;
+          border-top: 0px solid #ccc;
+          border-left: 0px solid #ccc;
+          margin: 5px;
+          margin-top: 10px;
+          padding: 5px;
+          cursor: pointer;
+          text-align: center;
+        }
+        .selected {
+          border-bottom: 2px solid blue;
+        }
+        .recommendation {
+          margin: 10px;
+          font-size: 14px;
+          color: #666;
+        }
+      `}</style>
+    </div>
+  )
+}
 
 const MoviesListComp = ({ user }) => {
   const router = useRouter()
@@ -70,7 +131,6 @@ const MoviesListComp = ({ user }) => {
                     <span className="movieYear">({movie.Movie?.year})</span>
                   </div>
                   <div className="plot">{movie.Movie?.plot}</div>
-
                   <div className="actions">
                     <div className="watchedDate">
                       <span title={new Date(movie.createdAt).toUTCString()}>
@@ -108,18 +168,30 @@ const MoviesListComp = ({ user }) => {
                       </button>
                     )}
                   </div>
+                  <div className="vote">
+                    <Vote
+                      movieId={movie.id}
+                      select={movie.vote}
+                      user={user}
+                      session={session}
+                      refetch={refetch}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </>
         ))}
       </div>
-      <button disabled={page === 0} onClick={goToPreviousPage}>
-        Previous
-      </button>
-      <button disabled={!hasMore} onClick={goToNextPage}>
-        Next
-      </button>
+
+      <div className="pagination">
+        <button className="prev" disabled={page === 0} onClick={goToPreviousPage}>
+          Previous
+        </button>
+        <button className="next" disabled={!hasMore} onClick={goToNextPage}>
+          Next
+        </button>
+      </div>
 
       <style jsx>{`
         /*.moviesList {*/
@@ -213,6 +285,19 @@ const MoviesListComp = ({ user }) => {
           margin-right: 10px;
           border-left: 1px solid #ccc;
           border-right: 1px solid #ccc;
+        }
+        .pagination {
+          display: flex;
+          background-color: #eee;
+          border-bottom: 2px solid #ccc;
+          margin: 10px;
+        }
+        .pagination .next {
+          flex: 1;
+        }
+        .pagination button {
+          margin: 10px;
+          padding: 5px;
         }
       `}</style>
     </>

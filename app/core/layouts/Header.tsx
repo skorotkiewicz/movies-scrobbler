@@ -10,9 +10,20 @@ const Header = () => {
   return (
     <div className="header">
       <div className="logo">
-        <Link href="/dashboard">Movies Scrobbler</Link>
+        {/* <Link href="/dashboard">Movies Scrobbler</Link> */}
+
+        <span className="logo___1">Movies</span>
+        <span className="logo___2">
+          <Link href="/dashboard">Scrobbler</Link>
+        </span>
       </div>
-      <div className="user">{session.userId ? <HeaderLinks /> : <>Welcome!</>}</div>
+      <div className="user">
+        {session.userId ? (
+          <HeaderLinks />
+        ) : (
+          <div style={{ color: "#fff" }}>the easiest way to scrobble movies</div>
+        )}
+      </div>
       <div className="links">
         {session.userId ? (
           <>
@@ -43,49 +54,57 @@ const Header = () => {
         )}
       </div>
       <style global jsx>{`
+        body {
+          /*background-color: #f6f8fa;*/
+          font-family: Helvetica, sans-serif;
+        }
         .header {
           align-items: center;
           padding: 5px;
           display: flex;
-          background-color: orange;
-          border-bottom: 2px solid red;
+          /*background-color: orange;*/
+          background-color: #2f374c;
+          /*border-bottom: 2px solid red;*/
         }
         .header a,
         .header button {
-          color: #777;
+          /*color: #777;*/
+          color: #fff;
           text-decoration: none;
           padding: 5px;
-          border-bottom: 1px solid #777;
-          background-color: #feb724;
+          /*border-bottom: 1px solid #777;*/
+          /*background-color: #feb724;*/
+          background-color: #1d8fe7;
         }
         .header button {
           border-top: 0;
           border-left: 0;
           border-right: 0;
-          border-bottom: 1px solid #777;
-          background-color: #fff5d7;
+          /*border-bottom: 2px solid red;*/
+          /*background-color: #fff5d7;*/
           outline: none !important;
         }
 
-        .logo a {
-          color: #333;
-          font-family: "Tahoma", "Geneva", sans-serif;
-          border-bottom: 0;
-          padding: 0;
-          /*font-family: "lucida sans unicode", "lucida grande", sans-serif;*/
-          /*font-family: "palatino linotype", palatino, serif;*/
-          /*font-family: impact, sans-serif;*/
-        }
         .logo {
-          width: 65px;
+          color: #fff;
           padding: 10px;
           margin-right: 20px;
           font-weight: 100;
-          text-align: center;
-          border: 1px solid red;
-          background-color: #feb724;
           text-decoration: none !important;
         }
+
+        .logo___1 {
+          display: flex;
+          background-color: #1d8fe7;
+          transform: rotate(-7deg) !important;
+          border-bottom: 2px solid red;
+        }
+        .logo___2 {
+          display: flex;
+          background-color: #1d8fe7;
+          transform: rotate(-3deg) !important;
+        }
+
         .links a {
           margin-right: 10px;
         }
@@ -111,20 +130,27 @@ export const HeaderLinks = () => {
   const userName = useParam("userName", "string")
 
   return (
-    <div>
+    <div style={{ transform: "rotate(-1deg)" }}>
       {userName ? (
         <Link href={`/dashboard`}>
           <a>Dashboard</a>
         </Link>
       ) : (
-        <>
+        <div>
           <Link href={`/@/${session.name}`}>
             <a style={{ marginRight: 10 }}>Public Profile</a>
           </Link>
-          <button onClick={async () => await setViewProfileMutation({ current: session.isPublic })}>
+          <button
+            style={{
+              marginLeft: -10,
+              cursor: "pointer",
+              borderBottom: `2px solid ${session.isPublic ? "orange" : "red"}`,
+            }}
+            onClick={async () => await setViewProfileMutation({ current: session.isPublic })}
+          >
             {session.isPublic?.toString()}
           </button>
-        </>
+        </div>
       )}
     </div>
   )
