@@ -141,7 +141,8 @@ const MoviesListComp = ({ user }) => {
                   <div className="actions">
                     <div className="watchedDate">
                       <span title={new Date(movie.createdAt).toUTCString()}>
-                        Watched {moment(new Date(movie.createdAt)).fromNow()}
+                        {watched ? "Watched" : "Added"}{" "}
+                        {moment(new Date(movie.createdAt)).fromNow()}
                       </span>
                       <span className="runtime">
                         {movie.Movie?.runtime && `(Runtime: ${movie.Movie?.runtime})`}
