@@ -3,8 +3,6 @@ import { Head, BlitzPage } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import MoviesListComp from "app/core/layouts/MoviesListComp"
 
-// const ITEMS_PER_PAGE = 20
-
 const Watchlist: BlitzPage = () => {
   return (
     <>

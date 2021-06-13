@@ -62,29 +62,22 @@ const Header = () => {
           align-items: center;
           padding: 5px;
           display: flex;
-          /*background-color: orange;*/
           background-color: #2f374c;
-          /*border-bottom: 2px solid red;*/
+          /*border-bottom: 4px solid orange;*/
         }
         .header a,
         .header button {
-          /*color: #777;*/
           color: #fff;
           text-decoration: none;
           padding: 5px;
-          /*border-bottom: 1px solid #777;*/
-          /*background-color: #feb724;*/
           background-color: #1d8fe7;
         }
         .header button {
           border-top: 0;
           border-left: 0;
           border-right: 0;
-          /*border-bottom: 2px solid red;*/
-          /*background-color: #fff5d7;*/
           outline: none !important;
         }
-
         .logo {
           color: #fff;
           padding: 10px;
@@ -92,7 +85,6 @@ const Header = () => {
           font-weight: 100;
           text-decoration: none !important;
         }
-
         .logo___1 {
           display: flex;
           background-color: #1d8fe7;
@@ -104,7 +96,6 @@ const Header = () => {
           background-color: #1d8fe7;
           transform: rotate(-3deg) !important;
         }
-
         .links a {
           margin-right: 10px;
         }

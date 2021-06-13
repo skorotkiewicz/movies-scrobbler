@@ -6,8 +6,20 @@ const Home: BlitzPage = () => {
     <div className="container">
       <main>
         <h2>Movies Scrobbler with beautiful Timelime</h2>
-        <h4>Nothing more, just a nice timeline with watched movies</h4>
+        <h4>Nothing more, just a nice simple timeline with watched movies and your watchlist</h4>
       </main>
+
+      <footer>
+        build with{" "}
+        <span role="img" aria-labelledby="heart">
+          ❤️
+        </span>{" "}
+        by{" "}
+        <a href="https://github.com/skorotkiewicz" target="_blank" rel="noopener noreferrer">
+          skorotkiewicz
+        </a>
+        , using blitzjs.com
+      </footer>
 
       <style jsx>{`
         .container {
@@ -27,6 +39,16 @@ const Home: BlitzPage = () => {
         main h2 {
           font-weight: 100;
           color: #333;
+        }
+        footer {
+          position: absolute;
+          bottom: 0;
+          border-top: 2px solid #ccc;
+          width: 100vw;
+          text-align: center;
+          font-size: 12px;
+          padding: 5px;
+          background-color: #eee;
         }
       `}</style>
     </div>
