@@ -82,7 +82,7 @@ const MoviesListComp = ({ user }) => {
 
   let where = {}
   if (user) {
-    where = { userId: user.id, watched }
+    where = { userId: watched ? user.id : session.userId, watched }
   } else {
     where = { userId: session.userId, watched }
   }
@@ -149,10 +149,12 @@ const MoviesListComp = ({ user }) => {
                       <button
                         onClick={async () => {
                           confirmAlert({
-                            title: `Confirm to remove from ${watched ? "watch" : "wait"} list`,
+                            title: `Confirm to remove from ${
+                              watched ? "watched list" : "watchlist"
+                            }`,
                             message: `Do you really want to remove this movie from your ${
-                              watched ? "watch" : "wait"
-                            } list?`,
+                              watched ? "watched list" : "watchlist"
+                            }?`,
                             buttons: [
                               {
                                 label: "Yes",
