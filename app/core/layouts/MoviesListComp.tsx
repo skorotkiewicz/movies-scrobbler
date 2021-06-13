@@ -3,6 +3,7 @@
 import { usePaginatedQuery, useRouter, useMutation, useSession } from "blitz"
 import deleteMovie from "app/movies/mutations/deleteMovie"
 import voteMovie from "app/movies/mutations/voteMovie"
+import watchedMovie from "app/movies/mutations/watchedMovie"
 import getMovies from "app/movies/queries/getMovies"
 import AddMovie from "app/movies/components/AddMovie"
 import { confirmAlert } from "react-confirm-alert"
@@ -76,12 +77,14 @@ const MoviesListComp = ({ user }) => {
   const page = Number(router.query.page) || 0
   const session = useSession()
   const [deleteMovieMutation] = useMutation(deleteMovie)
+  const [watchedMovieMutation] = useMutation(watchedMovie)
+  let watched: boolean = user?.watchlist ? false : true
 
   let where = {}
   if (user) {
-    where = { userId: user.id }
+    where = { userId: user.id, watched }
   } else {
-    where = { userId: session.userId }
+    where = { userId: session.userId, watched }
   }
 
   const [{ movies, hasMore, count }, { refetch }] = usePaginatedQuery(getMovies, {
@@ -97,12 +100,14 @@ const MoviesListComp = ({ user }) => {
 
   return (
     <>
-      {!user && <AddMovie refetch={refetch} />}
+      {(!user || !watched) && <AddMovie refetch={refetch} watchlist={!watched} />}
       <div className="moviesList">
-        <div className={`counter ${user && "profileDeco"}`}>Watched movies: {count}</div>
+        <div className={`counter ${user && "profileDeco"}`}>
+          {watched ? <>Watched movies: {count}</> : <>Movies on watchlist: {count}</>}
+        </div>
         {movies.map((movie) => (
           <>
-            {lastDay !== new Date(movie.createdAt).getDate() && (
+            {lastDay !== new Date(movie.createdAt).getDate() && watched && (
               <>
                 <span style={{ display: "none" }}>
                   {(lastDay = new Date(movie.createdAt).getDate())}
@@ -140,13 +145,14 @@ const MoviesListComp = ({ user }) => {
                       </span>
                     </div>
 
-                    {!user && (
+                    {(!user || !watched) && (
                       <button
                         onClick={async () => {
                           confirmAlert({
-                            title: "Confirm to remove from watch list",
-                            message:
-                              "Do you really want to remove this movie from your watch list?",
+                            title: `Confirm to remove from ${watched ? "watch" : "wait"} list`,
+                            message: `Do you really want to remove this movie from your ${
+                              watched ? "watch" : "wait"
+                            } list?`,
                             buttons: [
                               {
                                 label: "Yes",
@@ -163,8 +169,26 @@ const MoviesListComp = ({ user }) => {
                           })
                         }}
                       >
-                        Unwatch
+                        {watched ? (
+                          "Unwatch"
+                        ) : (
+                          <span style={{ color: "red", fontSize: 14 }}>Remove from watchlist</span>
+                        )}
                       </button>
+                    )}
+
+                    {!watched && (
+                      <div>
+                        <button
+                          onClick={async () => {
+                            await watchedMovieMutation({ movieId: movie.id })
+                            refetch()
+                          }}
+                          style={{ color: "green", fontSize: 16 }}
+                        >
+                          ✔ Watched
+                        </button>
+                      </div>
                     )}
                   </div>
                   <div className="vote">

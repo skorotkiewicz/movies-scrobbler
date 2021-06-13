@@ -86,6 +86,7 @@ model UserMovie {
   movieId   Int?
   userId    Int?
   vote      Int?
+  watched   Boolean  @default(true)
 }
 
 // /quit interet cut off, write me memo! it will be send to my mail!

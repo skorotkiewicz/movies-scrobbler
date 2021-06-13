@@ -136,22 +136,39 @@ export const HeaderLinks = () => {
           <a>Dashboard</a>
         </Link>
       ) : (
-        <div>
-          <Link href={`/@/${session.name}`}>
-            <a style={{ marginRight: 10 }}>Public Profile</a>
-          </Link>
-          <button
-            style={{
-              marginLeft: -10,
-              cursor: "pointer",
-              borderBottom: `2px solid ${session.isPublic ? "orange" : "red"}`,
-            }}
-            onClick={async () => await setViewProfileMutation({ current: session.isPublic })}
-          >
-            {session.isPublic?.toString()}
-          </button>
+        <div className="usersHeaderLinks">
+          <div className="publicProfile">
+            <Link href={`/@/${session.name}`}>
+              <a style={{ marginRight: 10 }}>Public Profile</a>
+            </Link>
+            <button
+              style={{
+                marginLeft: -10,
+                cursor: "pointer",
+                borderBottom: `2px solid ${session.isPublic ? "orange" : "red"}`,
+              }}
+              onClick={async () => await setViewProfileMutation({ current: session.isPublic })}
+            >
+              {session.isPublic?.toString()}
+            </button>
+          </div>
+          <div className="watchlist">
+            <Link href={`/watchlist`}>
+              <a style={{ marginRight: 10 }}>Watchlist</a>
+            </Link>
+          </div>
         </div>
       )}
+
+      <style global jsx>{`
+        .usersHeaderLinks {
+          display: flex;
+        }
+        .watchlist {
+          margin-left: 15px;
+          transform: rotate(3deg);
+        }
+      `}</style>
     </div>
   )
 }

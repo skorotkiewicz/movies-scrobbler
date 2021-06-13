@@ -6,6 +6,7 @@ import axios from "axios"
 const CreateMovie = z.object({
   Title: z.string(),
   imdbID: z.string(),
+  watchlist: z.boolean(),
 })
 
 export default resolver.pipe(
@@ -33,13 +34,14 @@ export default resolver.pipe(
           plot: src.Plot,
         },
       })
-      // movie = await db.movie.create({
-      //   data: { title: input.Title, year: input.Year, imdbID: input.imdbID, poster: input.Poster },
-      // })
     }
 
     await db.userMovie.create({
-      data: { userId: ctx.session.userId, movieId: movie.id },
+      data: {
+        userId: ctx.session.userId,
+        movieId: movie.id,
+        watched: input.watchlist ? false : true,
+      },
     })
 
     return movie

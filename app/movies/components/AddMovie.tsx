@@ -61,7 +61,7 @@ const renderSuggestion = (suggestion, { query }) => {
   )
 }
 
-const NewMoviePage: BlitzPage | any = ({ refetch }) => {
+const NewMoviePage: BlitzPage | any = ({ refetch, watchlist }) => {
   const [createMovieMutation] = useMutation(createMovie)
   const [value, setValue] = useState("")
   const [suggestions, setSuggestions] = useState([])
@@ -89,6 +89,8 @@ const NewMoviePage: BlitzPage | any = ({ refetch }) => {
 
   const onSuggestionSelected = async (event, { suggestion }) => {
     try {
+      suggestion["watchlist"] = watchlist ? true : false
+
       await createMovieMutation(suggestion)
       refetch()
       setValue("")
@@ -104,7 +106,7 @@ const NewMoviePage: BlitzPage | any = ({ refetch }) => {
   return (
     <div>
       <main>
-        <h1>Add Movie</h1>
+        <h1>{watchlist ? "Add to Watchlist" : "Add Movie"}</h1>
 
         <Autosuggest
           suggestions={suggestions}
