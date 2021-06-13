@@ -35,20 +35,24 @@ const Home: BlitzPage = () => {
           flex-direction: column;
           justify-content: center;
           align-items: center;
+          color: #dbe6fd;
         }
         main h2 {
           font-weight: 100;
-          color: #333;
         }
         footer {
           position: absolute;
           bottom: 0;
-          border-top: 2px solid #ccc;
+          border-top: 2px solid #2f374c;
           width: 100vw;
           text-align: center;
           font-size: 12px;
           padding: 5px;
-          background-color: #eee;
+          background-color: #282c37;
+          color: #dbe6fd;
+        }
+        footer a {
+          color: #dbe6fd;
         }
       `}</style>
     </div>

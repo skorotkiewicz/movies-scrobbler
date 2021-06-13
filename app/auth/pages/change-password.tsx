@@ -9,7 +9,7 @@ const ChangePasswordPage: BlitzPage = () => {
   const [changePasswordMutation, { isSuccess }] = useMutation(changePassword)
 
   return (
-    <div>
+    <div className="submitForm">
       <h1>Change Your Password</h1>
 
       {isSuccess ? (

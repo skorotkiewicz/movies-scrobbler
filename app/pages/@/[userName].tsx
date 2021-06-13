@@ -3,6 +3,7 @@ import { Head, useQuery, useParam, BlitzPage, useSession } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import getUser from "app/users/queries/getUser"
 import MoviesListComp from "app/core/layouts/MoviesListComp"
+import Loading from "app/core/components/Loading"
 
 export const MoviesList = () => {
   const userName: any = useParam("userName", "string")
@@ -48,14 +49,16 @@ export const MoviesList = () => {
 }
 
 const MoviesPage: BlitzPage = () => {
+  const userName: any = useParam("userName", "string")
+
   return (
     <>
       <Head>
-        <title>Movies</title>
+        <title>{userName}'s watched movies | Movie-Scrobbler</title>
       </Head>
 
       <div>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Loading />}>
           <MoviesList />
         </Suspense>
       </div>

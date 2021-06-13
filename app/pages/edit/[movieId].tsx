@@ -11,6 +11,7 @@ import Layout from "app/core/layouts/Layout"
 import getMovie from "app/movies/queries/getMovie"
 import updateMovie from "app/movies/mutations/updateMovie"
 import { MovieForm, FORM_ERROR } from "app/movies/components/MovieForm"
+import Loading from "app/core/components/Loading"
 
 export const EditMovie = () => {
   //   const router = useRouter()
@@ -63,7 +64,7 @@ export const EditMovie = () => {
 const EditMoviePage: BlitzPage = () => {
   return (
     <div>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Loading />}>
         <EditMovie />
       </Suspense>
 

@@ -8,55 +8,76 @@ const Header = () => {
   const router = useRouter()
 
   return (
-    <div className="header">
-      <div className="logo">
-        {/* <Link href="/dashboard">Movies Scrobbler</Link> */}
+    <div className="headerTop">
+      <div className="header">
+        <div className="logo">
+          {/* <Link href="/dashboard">Movies Scrobbler</Link> */}
 
-        <span className="logo___1">Movies</span>
-        <span className="logo___2">
-          <Link href="/dashboard">Scrobbler</Link>
-        </span>
-      </div>
-      <div className="user">
-        {session.userId ? (
-          <HeaderLinks />
-        ) : (
-          <div style={{ color: "#fff" }}>the easiest way to scrobble movies</div>
-        )}
-      </div>
-      <div className="links">
-        {session.userId ? (
-          <>
-            <Link href="/change-password">CP</Link>
-            <a
-              href="#"
-              onClick={async () => {
-                await logoutMutation()
-                router.push("/")
-              }}
-            >
-              Logout
-            </a>
-          </>
-        ) : (
-          <>
-            <Link href={Routes.SignupPage()}>
-              <a>
-                <strong>Sign Up</strong>
+          <span className="logo___1">Movies</span>
+          <span className="logo___2">
+            <Link href="/dashboard">Scrobbler</Link>
+          </span>
+        </div>
+        <div className="user">
+          {session.userId ? (
+            <HeaderLinks />
+          ) : (
+            <div style={{ color: "#fff" }}>the easiest way to scrobble movies</div>
+          )}
+        </div>
+        <div className="links">
+          {session.userId ? (
+            <>
+              <Link href="/change-password">CP</Link>
+              <a
+                href="#"
+                onClick={async () => {
+                  await logoutMutation()
+                  router.push("/")
+                }}
+              >
+                Logout
               </a>
-            </Link>
-            <Link href={Routes.LoginPage()}>
-              <a>
-                <strong>Login</strong>
-              </a>
-            </Link>
-          </>
-        )}
+            </>
+          ) : (
+            <>
+              <Link href={Routes.SignupPage()}>
+                <a>
+                  <strong>Sign Up</strong>
+                </a>
+              </Link>
+              <Link href={Routes.LoginPage()}>
+                <a>
+                  <strong>Login</strong>
+                </a>
+              </Link>
+            </>
+          )}
+        </div>
       </div>
+
       <style global jsx>{`
         body {
-          /*background-color: #f6f8fa;*/
+          background-color: #191b22;
           font-family: Helvetica, sans-serif;
+        }
+        .profileDesc {
+          color: #9baec8 !important;
+          border: 0 !important;
+          background-color: #282c37 !important;
+          border-top: 4px solid #2f374c !important;
+        }
+        main h1 {
+          width: 200px;
+        }
+        @media only screen and (max-width: 450px) {
+          .poster,
+          main h1 {
+            display: none;
+          }
+        }
+        .react-confirm-alert-overlay {
+          background-color: transparent !important;
         }
         .header {
           align-items: center;
@@ -64,6 +85,12 @@ const Header = () => {
           display: flex;
           background-color: #2f374c;
           /*border-bottom: 4px solid orange;*/
+          max-width: 800px;
+          margin: 0 auto;
+        }
+        .headerTop {
+          background-color: #2f374c;
+          border-bottom: 1px solid #606984;
         }
         .header a,
         .header button {
@@ -106,6 +133,41 @@ const Header = () => {
         }
         .links {
           justify-content: flex-end;
+        }
+
+        .submitForm {
+          background-color: #282c37;
+          padding: 10px;
+          margin: 10px;
+          color: #dbe6fd;
+        }
+        .submitForm button,
+        .submitForm input {
+          padding: 5px;
+          background-color: #444b5d;
+          color: #fff;
+          border: 0;
+        }
+        .submitForm a {
+          color: #fff;
+        }
+        .submitForm button {
+          margin-left: 20px;
+          padding: 10px;
+        }
+
+        ::-webkit-input-placeholder {
+          color: #9baec8;
+        }
+        :-ms-input-placeholder {
+          color: #9baec8;
+        }
+        ::placeholder {
+          color: #9baec8;
+        }
+        input:focus {
+          outline: none;
+          border-bottom: 4px solid #606984;
         }
       `}</style>
     </div>

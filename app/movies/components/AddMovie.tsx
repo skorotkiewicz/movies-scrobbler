@@ -123,19 +123,24 @@ const NewMoviePage: BlitzPage | any = ({ refetch, watchlist }) => {
           align-items: center;
           margin: 20px;
           display: flex;
-          background-color: #eee;
-          border: 1px solid #ccc;
+          background-color: #282c37;
           border-radius: 10px;
+          color: #9baec8;
         }
 
         .react-autosuggest__input {
-          /*border: 0 !important;*/
-          border-left: 1px solid #ccc;
-          border-right: 1px solid #ccc;
-          border-top: 0 !important;
-          border-bottom: 0 !important;
-          border-radius: 0 !important;
+          width: 100%;
+          flex: 1;
         }
+
+        // .react-autosuggest__input {
+        //   /*border: 0 !important;*/
+        //   border-left: 1px solid #ccc;
+        //   border-right: 1px solid #ccc;
+        //   border-top: 0 !important;
+        //   border-bottom: 0 !important;
+        //   border-radius: 0 !important;
+        // }
 
         main h1 {
           font-weight: 100;
@@ -144,19 +149,22 @@ const NewMoviePage: BlitzPage | any = ({ refetch, watchlist }) => {
         }
 
         .react-autosuggest__container {
+          display: flex;
+          width: calc(100%);
           position: relative;
         }
 
         .react-autosuggest__input {
-          width: 50vw;
-          /*width: 240px;*/
+          width: 100%;
           height: 30px;
           padding: 10px 20px;
           font-family: Helvetica, sans-serif;
           font-weight: 300;
           font-size: 16px;
-          border: 1px solid #aaa;
           border-radius: 4px;
+          background-color: #444b5d;
+          color: #fff;
+          border: 0;
         }
 
         .react-autosuggest__input:focus {
@@ -176,7 +184,7 @@ const NewMoviePage: BlitzPage | any = ({ refetch, watchlist }) => {
           display: block;
           position: absolute;
           top: 51px;
-          width: 280px;
+          width: 100%;
           border: 1px solid #aaa;
           background-color: #fff;
           font-family: Helvetica, sans-serif;
@@ -214,8 +222,8 @@ const NewMoviePage: BlitzPage | any = ({ refetch, watchlist }) => {
         }
 
         .name {
-          margin-left: 68px;
-          line-height: 45px;
+          margin-left: 10px;
+          /*line-height: 45px;*/
         }
 
         .highlight {

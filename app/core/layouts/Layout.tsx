@@ -15,12 +15,17 @@ const Layout = ({ title, children }: LayoutProps) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      {children}
+
+      <div className="app">{children}</div>
 
       <style global jsx>{`
         html,
         body {
           margin: 0;
+        }
+        .app {
+          margin: 0 auto;
+          max-width: 760px;
         }
       `}</style>
     </>

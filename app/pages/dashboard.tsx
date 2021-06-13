@@ -2,6 +2,7 @@ import { Suspense } from "react"
 import { Head, BlitzPage } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import MoviesListComp from "app/core/layouts/MoviesListComp"
+import Loading from "app/core/components/Loading"
 
 // const ITEMS_PER_PAGE = 20
 
@@ -9,11 +10,11 @@ const Dashboard: BlitzPage = () => {
   return (
     <>
       <Head>
-        <title>Movies</title>
+        <title>Dashboard | Movie-Scrobbler</title>
       </Head>
 
       <div>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Loading />}>
           <MoviesListComp user={null} />
         </Suspense>
       </div>
