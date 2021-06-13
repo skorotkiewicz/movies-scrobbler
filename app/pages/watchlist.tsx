@@ -2,6 +2,7 @@ import { Suspense } from "react"
 import { Head, BlitzPage } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import MoviesListComp from "app/core/layouts/MoviesListComp"
+import Loading from "app/core/components/Loading"
 
 const Watchlist: BlitzPage = () => {
   return (
@@ -11,7 +12,7 @@ const Watchlist: BlitzPage = () => {
       </Head>
 
       <div>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Loading />}>
           <MoviesListComp user={{ watchlist: true }} />
         </Suspense>
       </div>

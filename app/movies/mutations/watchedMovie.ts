@@ -19,7 +19,7 @@ export default resolver.pipe(
 
     await db.userMovie.update({
       where: { id: movieId },
-      data: { watched: true },
+      data: { watched: true, createdAt: new Date() },
       // data: { watched: !movie.watched },
     })
 
