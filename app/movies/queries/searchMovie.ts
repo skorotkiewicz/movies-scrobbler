@@ -8,13 +8,6 @@ const SearchMovie = z.object({
 
 export default resolver.pipe(resolver.zod(SearchMovie), resolver.authorize(), async ({ title }) => {
   if (title.length > 0) {
-    // let type: string;
-    // if (/ev\d{7}\/\d{4}(-\d)?|(ch|co|ev|nm|tt)\d{7}/.test(title)) {
-    //   type = "i";
-    // } else {
-    //   type = "s";
-    // }
-
     // // regex: https://stackoverflow.com/a/45046649/2922741
     let type: string = /ev\d{7}\/\d{4}(-\d)?|(ch|co|ev|nm|tt)\d{7}/.test(title) ? "i" : "s"
 
@@ -24,7 +17,6 @@ export default resolver.pipe(resolver.zod(SearchMovie), resolver.authorize(), as
 
     if (req.data.Response === "True") {
       return type === "i" ? [req.data] : req.data.Search
-      // return req.data.Search
     } else {
       return [{ error: "Movie not found!" }]
     }
