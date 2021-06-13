@@ -50,7 +50,8 @@ const renderSuggestion = (suggestion, { query }) => {
     <>
       {suggestionText && (
         <span className={"suggestion-content"}>
-          {(suggestion.Poster !== "N/A" || suggestion.Poster !== undefined) && (
+          {console.log(suggestion.Poster)}
+          {suggestion.Poster !== "N/A" && suggestion.Poster !== undefined && (
             <img height="100" width="60" src={suggestion.Poster} alt="Poster" />
           )}
 
