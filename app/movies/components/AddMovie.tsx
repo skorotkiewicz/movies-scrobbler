@@ -96,7 +96,7 @@ const NewMoviePage: BlitzPage | any = ({ refetch }) => {
   }
 
   const inputProps = {
-    placeholder: "Type Movie Title",
+    placeholder: "Type Movie Title or imdbID",
     value,
     onChange: onChange,
   }

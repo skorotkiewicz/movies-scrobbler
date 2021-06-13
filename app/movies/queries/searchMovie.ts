@@ -8,10 +8,23 @@ const SearchMovie = z.object({
 
 export default resolver.pipe(resolver.zod(SearchMovie), resolver.authorize(), async ({ title }) => {
   if (title.length > 0) {
-    let req = await axios.get(`https://www.omdbapi.com/?s=${title}&apikey=${process.env.OMDB_API}`)
+    // let type: string;
+    // if (/ev\d{7}\/\d{4}(-\d)?|(ch|co|ev|nm|tt)\d{7}/.test(title)) {
+    //   type = "i";
+    // } else {
+    //   type = "s";
+    // }
+
+    // // regex: https://stackoverflow.com/a/45046649/2922741
+    let type: string = /ev\d{7}\/\d{4}(-\d)?|(ch|co|ev|nm|tt)\d{7}/.test(title) ? "i" : "s"
+
+    let req = await axios.get(
+      `https://www.omdbapi.com/?${type}=${title}&apikey=${process.env.OMDB_API}`
+    )
 
     if (req.data.Response === "True") {
-      return req.data.Search
+      return type === "i" ? [req.data] : req.data.Search
+      // return req.data.Search
     } else {
       return [{ error: "Movie not found!" }]
     }
