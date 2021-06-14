@@ -1,7 +1,3 @@
-[![Blitz.js](https://raw.githubusercontent.com/blitz-js/art/master/github-cover-photo.png)](https://blitzjs.com)
-
-This is a [Blitz.js](https://github.com/blitz-js/blitz) app.
-
 # **WatchedMovies**
 
 ## Getting Started
@@ -22,25 +18,9 @@ Ensure the `.env.local` file has required environment variables:
 DATABASE_URL=postgresql://<YOUR_DB_USERNAME>@localhost:5432/WatchedMovies
 ```
 
-Ensure the `.env.test.local` file has required environment variables:
-
-```
-DATABASE_URL=postgresql://<YOUR_DB_USERNAME>@localhost:5432/WatchedMovies_test
-```
-
-## Tests
-
-Runs your tests using Jest.
-
-```
-yarn test
-```
-
-Blitz comes with a test setup using [Jest](https://jestjs.io/) and [react-testing-library](https://testing-library.com/).
-
 ## Commands
 
-Blitz comes with a powerful CLI that is designed to make development easy and fast. You can install it with `npm i -g blitz`
+Blitz comes with a powerful CLI that is designed to make development easy and fast. You can install it with `yarn i -g blitz`
 
 ```
   blitz [COMMAND]
@@ -64,67 +44,68 @@ You can read more about it on the [CLI Overview](https://blitzjs.com/docs/cli-ov
 Here is the starting structure of your app.
 
 ```
-WatchedMovies
-├── app/
-│   ├── api/
-│   ├── auth/
-│   │   ├── components/
-│   │   │   ├── LoginForm.tsx
-│   │   │   └── SignupForm.tsx
-│   │   ├── mutations/
-│   │   │   ├── changePassword.ts
-│   │   │   ├── forgotPassword.test.ts
-│   │   │   ├── forgotPassword.ts
-│   │   │   ├── login.ts
-│   │   │   ├── logout.ts
-│   │   │   ├── resetPassword.test.ts
-│   │   │   ├── resetPassword.ts
-│   │   │   └── signup.ts
-│   │   ├── pages/
-│   │   │   ├── forgot-password.tsx
-│   │   │   ├── login.tsx
-│   │   │   ├── reset-password.tsx
-│   │   │   └── signup.tsx
-│   │   └── validations.ts
-│   ├── core/
-│   │   ├── components/
-│   │   │   ├── Form.tsx
-│   │   │   └── LabeledTextField.tsx
-│   │   ├── hooks/
-│   │   │   └── useCurrentUser.ts
-│   │   └── layouts/
-│   │       └── Layout.tsx
-│   ├── pages/
-│   │   ├── 404.tsx
-│   │   ├── _app.tsx
-│   │   ├── _document.tsx
-│   │   ├── index.test.tsx
-│   │   └── index.tsx
-│   └── users/
-│       └── queries/
-│           └── getCurrentUser.ts
-├── db/
-│   ├── index.ts
-│   ├── schema.prisma
-│   └── seeds.ts
-├── integrations/
-├── mailers/
-│   └── forgotPasswordMailer.ts
-├── public/
-│   ├── favicon.ico*
-│   └── logo.png
-├── test/
-│   ├── setup.ts
-│   └── utils.tsx
-├── README.md
-├── babel.config.js
-├── blitz.config.js
-├── jest.config.js
-├── package.json
-├── tsconfig.json
-├── types.d.ts
-├── types.ts
-└── yarn.lock
+app
+├── api
+├── auth
+│   ├── components
+│   │   ├── LoginForm.tsx
+│   │   └── SignupForm.tsx
+│   ├── mutations
+│   │   ├── changePassword.ts
+│   │   ├── forgotPassword.test.ts
+│   │   ├── forgotPassword.ts
+│   │   ├── login.ts
+│   │   ├── logout.ts
+│   │   ├── resetPassword.test.ts
+│   │   ├── resetPassword.ts
+│   │   └── signup.ts
+│   ├── pages
+│   │   ├── change-password.tsx
+│   │   ├── forgot-password.tsx
+│   │   ├── login.tsx
+│   │   ├── reset-password.tsx
+│   │   └── signup.tsx
+│   └── validations.ts
+├── core
+│   ├── components
+│   │   ├── Form.tsx
+│   │   ├── LabeledTextField.tsx
+│   │   └── Loading.tsx
+│   ├── hooks
+│   │   └── useCurrentUser.ts
+│   └── layouts
+│       ├── Header.tsx
+│       ├── Layout.tsx
+│       └── MoviesListComp.tsx
+├── movies
+│   ├── components
+│   │   ├── AddMovie.tsx
+│   │   └── MovieForm.tsx
+│   ├── mutations
+│   │   ├── createMovie.ts
+│   │   ├── deleteMovie.ts
+│   │   ├── setViewProfile.ts
+│   │   ├── voteMovie.ts
+│   │   └── watchedMovie.ts
+│   └── queries
+│       ├── getMovie.ts
+│       ├── getMovies.ts
+│       └── searchMovie.ts
+├── pages
+│   ├── 404.tsx
+│   ├── @
+│   │   └── [userName].tsx
+│   ├── _app.tsx
+│   ├── _document.tsx
+│   ├── dashboard.tsx
+│   ├── index.test.tsx
+│   ├── index.tsx
+│   └── watchlist.tsx
+└── users
+    └── queries
+        ├── getCurrentUser.ts
+        └── getUser.ts
+
 ```
 
 These files are:
@@ -150,24 +131,3 @@ These files are:
 - `jest.config.js` contains config for Jest tests. You can [customize it if needed](https://jestjs.io/docs/en/configuration).
 
 You can read more about it in the [File Structure](https://blitzjs.com/docs/file-structure) section of the documentation.
-
-### Tools included
-
-Blitz comes with a set of tools that corrects and formats your code, facilitating its future maintenance. You can modify their options and even uninstall them.
-
-- **ESLint**: It lints your code: searches for bad practices and tell you about it. You can customize it via the `.eslintrc.js`, and you can install (or even write) plugins to have it the way you like it. It already comes with the [`blitz`](https://github.com/blitz-js/blitz/tree/canary/packages/eslint-config) config, but you can remove it safely. [Learn More](https://eslint.org).
-- **Husky**: It adds [githooks](https://git-scm.com/docs/githooks), little pieces of code that get executed when certain Git events are triggerd. For example, `pre-commit` is triggered just before a commit is created. You can see the current hooks inside `.husky/`. If are having problems commiting and pushing, check out ther [troubleshooting](https://typicode.github.io/husky/#/?id=troubleshoot) guide. [Learn More](https://typicode.github.io/husky).
-- **Prettier**: It formats your code to look the same everywhere. You can configure it via the `.prettierrc` file. The `.prettierignore` contains the files that should be ignored by Prettier; useful when you have large files or when you want to keep a custom formatting. [Learn More](https://prettier.io).
-
-## Learn more
-
-Read the [Blitz.js Documentation](https://blitzjs.com/docs/getting-started) to learn more.
-
-The Blitz community is warm, safe, diverse, inclusive, and fun! Feel free to reach out to us in any of our communication channels.
-
-- [Website](https://blitzjs.com/)
-- [Discord](https://discord.blitzjs.com/)
-- [Report an issue](https://github.com/blitz-js/blitz/issues/new/choose)
-- [Forum discussions](https://github.com/blitz-js/blitz/discussions)
-- [How to Contribute](https://blitzjs.com/docs/contributing)
-- [Sponsor or donate](https://github.com/blitz-js/blitz#sponsors-and-donations)

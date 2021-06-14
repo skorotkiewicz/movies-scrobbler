@@ -1,0 +1,19 @@
+# This env file should NOT be checked into source control
+# This is the place for values that changed for every developer
+
+# SQLite is ready to go out of the box, but you can switch to Postgres
+# by first changing the provider from "sqlite" to "postgres" in the Prisma
+# schema file and by second swapping the DATABASE_URL below.
+# DATABASE_URL="file:./db.sqlite"
+
+POSTGRES_USER=
+POSTGRES_PASSWORD=
+POSTGRES_DB=
+DATABASE_URL=postgresql://USER:PASSWORD@localhost:5432/WatchedMovies
+
+APP_ORIGIN=http://localhost:3000
+OMDB_API=
+MAILJET_API_1=
+MAILJET_API_2=
+NODE_ENV=production
+SESSION_SECRET_KEY=
