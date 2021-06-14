@@ -20,7 +20,7 @@ const Header = () => {
         </div>
         <div className="user">
           {session.userId ? (
-            <HeaderLinks />
+            <HeaderLinks router={router} />
           ) : (
             <div style={{ color: "#fff" }}>the easiest way to scrobble movies</div>
           )}
@@ -111,17 +111,21 @@ const Header = () => {
           margin-right: 20px;
           font-weight: 100;
           text-decoration: none !important;
+          transform: rotate(-3deg) !important;
         }
         .logo___1 {
           display: flex;
           background-color: #1d8fe7;
-          transform: rotate(-7deg) !important;
+          transform: rotate(-10deg);
           border-bottom: 2px solid red;
+          height: 15px;
         }
         .logo___2 {
           display: flex;
           background-color: #1d8fe7;
-          transform: rotate(-3deg) !important;
+          transform: rotate(-1deg) !important;
+          height: 25px;
+          margin-top: 4px;
         }
         .links a {
           margin-right: 10px;
@@ -176,50 +180,49 @@ const Header = () => {
 
 export default Header
 
-export const HeaderLinks = () => {
+export const HeaderLinks = ({ router }) => {
   const [setViewProfileMutation] = useMutation(setViewProfile)
 
   const session = useSession()
   const userName = useParam("userName", "string")
 
   return (
-    <div style={{ transform: "rotate(-1deg)" }}>
+    <div>
       {userName ? (
         <Link href={`/dashboard`}>
           <a>Dashboard</a>
         </Link>
       ) : (
         <div className="usersHeaderLinks">
-          <div className="publicProfile">
-            <Link href={`/@/${session.name}`}>
-              <a style={{ marginRight: 10 }}>Public Profile</a>
-            </Link>
-            <button
+          <Link href={`/@/${session.name}`}>
+            <a style={{ marginRight: 10 }}>Public Profile</a>
+          </Link>
+          <button
+            style={{
+              marginLeft: -10,
+              cursor: "pointer",
+              borderBottom: `2px solid ${session.isPublic ? "orange" : "red"}`,
+            }}
+            onClick={async () => await setViewProfileMutation({ current: session.isPublic })}
+          >
+            {session.isPublic?.toString()}
+          </button>
+
+          <Link href={router.pathname === "/watchlist" ? "/dashboard" : "/watchlist"}>
+            <a
               style={{
-                marginLeft: -10,
-                cursor: "pointer",
-                borderBottom: `2px solid ${session.isPublic ? "orange" : "red"}`,
+                marginLeft: 10,
               }}
-              onClick={async () => await setViewProfileMutation({ current: session.isPublic })}
             >
-              {session.isPublic?.toString()}
-            </button>
-          </div>
-          <div className="watchlist">
-            <Link href={`/watchlist`}>
-              <a style={{ marginRight: 10 }}>Watchlist</a>
-            </Link>
-          </div>
+              {router.pathname === "/watchlist" ? "Dashboard" : "Watchlist"}
+            </a>
+          </Link>
         </div>
       )}
 
       <style global jsx>{`
         .usersHeaderLinks {
           display: flex;
-        }
-        .watchlist {
-          margin-left: 15px;
-          transform: rotate(3deg);
         }
       `}</style>
     </div>

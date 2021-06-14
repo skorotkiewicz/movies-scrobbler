@@ -8,7 +8,7 @@ const Watchlist: BlitzPage = () => {
   return (
     <>
       <Head>
-        <title>Movies</title>
+        <title>Watchlist | Movie-Scrobbler</title>
       </Head>
 
       <div>
