@@ -16,6 +16,12 @@ Ensure the `.env.local` file has required environment variables:
 
 ```
 DATABASE_URL=postgresql://<YOUR_DB_USERNAME>@localhost:5432/WatchedMovies
+APP_ORIGIN=http://localhost:3000
+OMDB_API=<from omdbapi.com>
+MAILJET_API_1=
+MAILJET_API_2=
+NODE_ENV=production
+SESSION_SECRET_KEY=<RANDOM 32 CHARS>
 ```
 
 ## Commands
