@@ -11,7 +11,6 @@ export default resolver.pipe(
   resolver.zod(SetViewProfile),
   resolver.authorize(),
   async ({ current }, ctx) => {
-    // TODO: in multi-tenant app, you must add validation to ensure correct tenant
     const isPublic = await db.user.update({
       where: { id: ctx.session.userId! },
       data: { isPublic: !current },
