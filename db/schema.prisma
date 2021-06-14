@@ -88,5 +88,3 @@ model UserMovie {
   vote      Int?
   watched   Boolean  @default(true)
 }
-
-// /quit interet cut off, write me memo! it will be send to my mail!
