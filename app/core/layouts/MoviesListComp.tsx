@@ -91,7 +91,7 @@ const MoviesListComp = ({ user }) => {
   }
 
   const [{ movies, hasMore, count }, { refetch }] = usePaginatedQuery(getMovies, {
-    orderBy: { id: "desc" },
+    orderBy: { createdAt: "desc" },
     where,
     skip: ITEMS_PER_PAGE * page,
     take: ITEMS_PER_PAGE,
