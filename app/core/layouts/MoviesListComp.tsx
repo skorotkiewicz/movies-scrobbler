@@ -105,6 +105,8 @@ const MoviesListComp = ({ user }) => {
         }
         .counter {
           padding: 5px;
+          margin-left: 20px;
+          margin-right: 20px;
         }
         .profileDeco {
           margin-left: 10px;
