@@ -195,7 +195,7 @@ export const HeaderLinks = ({ router }) => {
       ) : (
         <div className="usersHeaderLinks">
           <Link href={`/u/${session.name}`}>
-            <a style={{ marginRight: 10 }}>Public Profile</a>
+            <a style={{ marginRight: 10 }}>{session.isPublic ? "Public" : "Private"} Profile</a>
           </Link>
           <button
             style={{
