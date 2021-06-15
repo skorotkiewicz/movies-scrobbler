@@ -82,6 +82,7 @@ app
 │   └── layouts
 │       ├── Header.tsx
 │       ├── Layout.tsx
+│       ├── MovieComp.tsx
 │       └── MoviesListComp.tsx
 ├── movies
 │   ├── components
@@ -111,7 +112,6 @@ app
     └── queries
         ├── getCurrentUser.ts
         └── getUser.ts
-
 ```
 
 These files are:
