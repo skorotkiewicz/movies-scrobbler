@@ -49,8 +49,8 @@ const MoviesListComp = ({ user }) => {
         <AddMovie moviesList={moviesList} setMoviesList={setMoviesList} watchlist={!watched} />
       )}
       <div className="moviesList">
-        <div className={`counter ${user ? "profileDeco" : ""}`}>
-          {watched ? <>Watched movies: {count}</> : <>Movies on watchlist: {count}</>}
+        <div className={`counter ${user?.id ? "profileDeco" : ""}`}>
+          <span>{watched ? <>Watched movies: {count}</> : <>Movies on watchlist: {count}</>}</span>
         </div>
         {moviesList.map((movie, key) => (
           <>
@@ -96,9 +96,12 @@ const MoviesListComp = ({ user }) => {
       <style jsx>{`
         .movieList,
         .counter {
-          background-color: #282c37;
           color: #dbe6fd;
-          border-bottom: 4px solid #2f374c;
+          border-bottom: 2px solid #2f374c;
+        }
+        .counter span {
+          margin-left: 10px;
+          color: #9baec8;
         }
         .counter {
           padding: 5px;
@@ -106,6 +109,8 @@ const MoviesListComp = ({ user }) => {
         .profileDeco {
           margin-left: 10px;
           margin-right: 10px;
+          background-color: #282c37;
+          border-bottom: 4px solid #2f374c;
         }
         .pagination {
           display: flex;

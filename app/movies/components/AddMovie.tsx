@@ -139,6 +139,7 @@ const NewMoviePage: BlitzPage | any = ({ watchlist, moviesList, setMoviesList })
           font-weight: 100;
           font-size: 20px;
           margin: 10px;
+          text-align: center;
         }
 
         .react-autosuggest__container {
