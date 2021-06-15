@@ -3,6 +3,7 @@ import { usePaginatedQuery, useRouter, useSession } from "blitz"
 import getMovies from "app/movies/queries/getMovies"
 import AddMovie from "app/movies/components/AddMovie"
 import MovieComp from "./MovieComp"
+import moment from "moment"
 
 const ITEMS_PER_PAGE = 40
 
@@ -40,6 +41,8 @@ const MoviesListComp = ({ user }) => {
     setMoviesList(newList)
   }
 
+  let lastDay = 0 // getDate()
+
   return (
     <>
       {(!user || !watched) && (
@@ -50,14 +53,26 @@ const MoviesListComp = ({ user }) => {
           {watched ? <>Watched movies: {count}</> : <>Movies on watchlist: {count}</>}
         </div>
         {moviesList.map((movie, key) => (
-          <MovieComp
-            key={key}
-            watched={watched}
-            movie={movie}
-            user={user}
-            session={session}
-            removeUserMovie={removeUserMovie}
-          />
+          <>
+            {lastDay !== new Date(movie.createdAt).getDate() && watched && (
+              <>
+                <span style={{ display: "none" }}>
+                  {(lastDay = new Date(movie.createdAt).getDate())}
+                </span>
+                <div className="separator">{moment(movie.createdAt).format("DD/MM/YYYY")}</div>
+              </>
+            )}
+
+            <MovieComp
+              key={key}
+              watched={watched}
+              movie={movie}
+              user={user}
+              session={session}
+              removeUserMovie={removeUserMovie}
+              moment={moment}
+            />
+          </>
         ))}
       </div>
 
@@ -116,6 +131,27 @@ const MoviesListComp = ({ user }) => {
           color: #fff;
           font-weight: bold;
           border-bottom: 4px solid #606984 !important;
+        }
+
+        .separator {
+          display: flex;
+          align-items: center;
+          text-align: center;
+          margin-top: 10px;
+          margin-bottom: 10px;
+          color: #606984;
+        }
+        .separator::before,
+        .separator::after {
+          content: "";
+          flex: 1;
+          border-bottom: 1px solid #606984;
+        }
+        .separator:not(:empty)::before {
+          margin-right: 0.25em;
+        }
+        .separator:not(:empty)::after {
+          margin-left: 0.25em;
         }
       `}</style>
     </>

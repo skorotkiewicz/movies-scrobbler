@@ -2,7 +2,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from "react"
 import { useMutation } from "blitz"
-import moment from "moment"
 import deleteMovie from "app/movies/mutations/deleteMovie"
 import voteMovie from "app/movies/mutations/voteMovie"
 import watchedMovie from "app/movies/mutations/watchedMovie"
@@ -101,22 +100,18 @@ const Vote = ({ movieId, select, user, session }) => {
   )
 }
 
-const MovieComp = ({ movie, watched, user, session, removeUserMovie }) => {
-  let lastDay = 0 // getDate()
-
+const MovieComp = ({ movie, watched, user, session, removeUserMovie, moment }) => {
   const [deleteMovieMutation] = useMutation(deleteMovie)
   const [watchedMovieMutation] = useMutation(watchedMovie)
 
+  // const timeConvert = (num) => {
+  //   let hours = Math.floor(num / 60)
+  //   let minutes = num % 60
+  //   return hours + ":" + minutes
+  // }
+
   return (
     <>
-      {lastDay !== new Date(movie.createdAt).getDate() && watched && (
-        <>
-          <span style={{ display: "none" }}>{(lastDay = new Date(movie.createdAt).getDate())}</span>
-
-          <div className="separator">{moment(movie.createdAt).format("DD/MM/YYYY")}</div>
-        </>
-      )}
-
       <div key={movie.id} className="movieList">
         <div className="movie">
           <div className="poster">
@@ -142,6 +137,9 @@ const MovieComp = ({ movie, watched, user, session, removeUserMovie }) => {
                 </span>
                 <span className="runtime">
                   {movie.Movie?.runtime && `(Runtime: ${movie.Movie?.runtime})`}
+                  {/* {`Runtime: (` +
+                    timeConvert(Number(movie.Movie?.runtime.replace(/ min/, ""))) +
+                    `h)`} */}
                 </span>
               </div>
 
@@ -274,27 +272,6 @@ const MovieComp = ({ movie, watched, user, session, removeUserMovie }) => {
         .profileDeco {
           margin-left: 10px;
           margin-right: 10px;
-        }
-
-        .separator {
-          display: flex;
-          align-items: center;
-          text-align: center;
-          margin-top: 10px;
-          margin-bottom: 10px;
-          color: #606984;
-        }
-        .separator::before,
-        .separator::after {
-          content: "";
-          flex: 1;
-          border-bottom: 1px solid #606984;
-        }
-        .separator:not(:empty)::before {
-          margin-right: 0.25em;
-        }
-        .separator:not(:empty)::after {
-          margin-left: 0.25em;
         }
       `}</style>
     </>
