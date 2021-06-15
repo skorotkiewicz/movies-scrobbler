@@ -208,13 +208,13 @@ export const HeaderLinks = ({ router }) => {
             {session.isPublic?.toString()}
           </button>
 
-          <Link href={router.pathname === "/watchlist" ? "/dashboard" : "/watchlist"}>
+          <Link href={router.pathname === "/dashboard" ? "/watchlist" : "/dashboard"}>
             <a
               style={{
                 marginLeft: 10,
               }}
             >
-              {router.pathname === "/watchlist" ? "Dashboard" : "Watchlist"}
+              {router.pathname === "/dashboard" ? "Watchlist" : "Dashboard"}
             </a>
           </Link>
         </div>
