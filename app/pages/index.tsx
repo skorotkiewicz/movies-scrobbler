@@ -1,5 +1,6 @@
 import { BlitzPage } from "blitz"
 import Layout from "app/core/layouts/Layout"
+import { version } from "./../../version.json"
 
 const Home: BlitzPage = () => {
   return (
@@ -18,7 +19,8 @@ const Home: BlitzPage = () => {
         <a href="https://github.com/skorotkiewicz" target="_blank" rel="noopener noreferrer">
           skorotkiewicz
         </a>
-        , using blitzjs.com
+        , using blitzjs.com <br />
+        <strong>version: {version}</strong>
       </footer>
 
       <style jsx>{`

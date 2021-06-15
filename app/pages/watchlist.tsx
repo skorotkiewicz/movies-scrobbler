@@ -16,20 +16,6 @@ const Watchlist: BlitzPage = () => {
           <MoviesListComp user={{ watchlist: true }} />
         </Suspense>
       </div>
-
-      <style global jsx>{`
-        .addMovieForm {
-          display: flex;
-          background-color: #eee;
-          padding: 10px;
-          margin-top: 10px;
-          margin-bottom: 10px;
-        }
-        .addMovieForm input,
-        .addMovieForm button {
-          margin: 5px;
-        }
-      `}</style>
     </>
   )
 }

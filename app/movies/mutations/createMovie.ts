@@ -36,7 +36,7 @@ export default resolver.pipe(
       })
     }
 
-    await db.userMovie.create({
+    let userMovie = await db.userMovie.create({
       data: {
         userId: ctx.session.userId,
         movieId: movie.id,
@@ -44,6 +44,6 @@ export default resolver.pipe(
       },
     })
 
-    return movie
+    return { Movie: movie, ...userMovie }
   }
 )

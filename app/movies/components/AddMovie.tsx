@@ -61,7 +61,7 @@ const renderSuggestion = (suggestion, { query }) => {
   )
 }
 
-const NewMoviePage: BlitzPage | any = ({ refetch, watchlist }) => {
+const NewMoviePage: BlitzPage | any = ({ watchlist, moviesList, setMoviesList }) => {
   const [createMovieMutation] = useMutation(createMovie)
   const [value, setValue] = useState("")
   const [suggestions, setSuggestions] = useState([])
@@ -76,23 +76,25 @@ const NewMoviePage: BlitzPage | any = ({ refetch, watchlist }) => {
   }
 
   const onSuggestionsFetchRequested = async ({ value }) => {
-    const now = Math.floor(Date.now() / 1000)
+    let s
+    // Search API after 3 sec on end typing
+    clearTimeout(searchTimeout)
 
-    if (searchTimeout < now) {
-      setSearchTimeout(now + 4)
-      // setTimeout(async () => {
-      //   setSuggestions(await getSuggestions(value))
-      // }, 5000)
+    s = setTimeout(async () => {
       setSuggestions(await getSuggestions(value))
-    }
+    }, 3000)
+
+    setSearchTimeout(s)
   }
 
   const onSuggestionSelected = async (event, { suggestion }) => {
     try {
       suggestion["watchlist"] = watchlist ? true : false
 
-      await createMovieMutation(suggestion)
-      refetch()
+      let newMovie = await createMovieMutation(suggestion)
+      // refetch()
+
+      setMoviesList([newMovie, ...moviesList])
       setValue("")
     } catch (error) {}
   }
@@ -132,15 +134,6 @@ const NewMoviePage: BlitzPage | any = ({ refetch, watchlist }) => {
           width: 100%;
           flex: 1;
         }
-
-        // .react-autosuggest__input {
-        //   /*border: 0 !important;*/
-        //   border-left: 1px solid #ccc;
-        //   border-right: 1px solid #ccc;
-        //   border-top: 0 !important;
-        //   border-bottom: 0 !important;
-        //   border-radius: 0 !important;
-        // }
 
         main h1 {
           font-weight: 100;
@@ -221,18 +214,17 @@ const NewMoviePage: BlitzPage | any = ({ refetch, watchlist }) => {
           background-repeat: no-repeat;
         }
 
+        .react-autosuggest__suggestion--focused .highlight {
+          color: #120000;
+        }
+
         .name {
           margin-left: 10px;
-          /*line-height: 45px;*/
         }
 
         .highlight {
           color: #ee0000;
           font-weight: bold;
-        }
-
-        .react-autosuggest__suggestion--focused .highlight {
-          color: #120000;
         }
       `}</style>
     </div>
