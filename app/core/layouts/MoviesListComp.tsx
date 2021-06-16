@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { usePaginatedQuery, useRouter, useSession } from "blitz"
+import { usePaginatedQuery, useRouter, useSession, Link } from "blitz"
 import getMovies from "app/movies/queries/getMovies"
 import AddMovie from "app/movies/components/AddMovie"
 import MovieComp from "./MovieComp"
@@ -59,7 +59,15 @@ const MoviesListComp = ({ user }) => {
                 <span style={{ display: "none" }}>
                   {(lastDay = new Date(movie.createdAt).getDate())}
                 </span>
-                <div className="separator">{moment(movie.createdAt).format("DD/MM/YYYY")}</div>
+                <div className="separator">
+                  <Link
+                    href={`/u/${user?.name ? user.name : session.name}/archive/${moment(
+                      movie.createdAt
+                    ).format("YYYY-MM-DD")}`}
+                  >
+                    <a>{moment(movie.createdAt).format("YYYY/MM/DD")}</a>
+                  </Link>
+                </div>
               </>
             )}
 
@@ -70,7 +78,6 @@ const MoviesListComp = ({ user }) => {
               user={user}
               session={session}
               removeUserMovie={removeUserMovie}
-              moment={moment}
             />
           </>
         ))}
@@ -94,7 +101,7 @@ const MoviesListComp = ({ user }) => {
       </div>
 
       <style jsx>{`
-        .movieList,
+        .movieComp,
         .counter {
           color: #dbe6fd;
           border-bottom: 2px solid #2f374c;
@@ -142,6 +149,15 @@ const MoviesListComp = ({ user }) => {
           border-bottom: 4px solid #606984 !important;
         }
 
+        .separator a {
+          cursor: pointer;
+          text-decoration: none;
+          color: #9baec8;
+          /*border-bottom: 1px solid #606984;*/
+          border-radius: 30px;
+          padding: 5px;
+          font-size: 14px;
+        }
         .separator {
           display: flex;
           align-items: center;

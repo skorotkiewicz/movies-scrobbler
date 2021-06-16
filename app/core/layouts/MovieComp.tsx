@@ -7,6 +7,7 @@ import voteMovie from "app/movies/mutations/voteMovie"
 import watchedMovie from "app/movies/mutations/watchedMovie"
 import { confirmAlert } from "react-confirm-alert"
 import "react-confirm-alert/src/react-confirm-alert.css"
+import moment from "moment"
 
 const Vote = ({ movieId, select, user, session }) => {
   const [voteMovieMutation] = useMutation(voteMovie)
@@ -100,7 +101,7 @@ const Vote = ({ movieId, select, user, session }) => {
   )
 }
 
-const MovieComp = ({ movie, watched, user, session, removeUserMovie, moment }) => {
+const MovieComp = ({ movie, watched, user, session, removeUserMovie }) => {
   const [deleteMovieMutation] = useMutation(deleteMovie)
   const [watchedMovieMutation] = useMutation(watchedMovie)
 
@@ -112,7 +113,7 @@ const MovieComp = ({ movie, watched, user, session, removeUserMovie, moment }) =
 
   return (
     <>
-      <div key={movie.id} className="movieList">
+      <div key={movie.id} className="movieComp">
         <div className="movie">
           <div className="poster">
             {movie.Movie?.poster && <img src={movie.Movie?.poster} alt="poster" />}
@@ -240,7 +241,7 @@ const MovieComp = ({ movie, watched, user, session, removeUserMovie, moment }) =
         .runtime {
           color: #9baec8;
         }
-        .movieList,
+        .movieComp,
         .counter {
           background-color: #282c37;
           color: #dbe6fd;
@@ -249,7 +250,7 @@ const MovieComp = ({ movie, watched, user, session, removeUserMovie, moment }) =
         .counter {
           padding: 5px;
         }
-        .movieList {
+        .movieComp {
           margin: 10px;
           padding: 10px;
         }
