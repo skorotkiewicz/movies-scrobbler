@@ -100,13 +100,16 @@ app
 │       └── searchMovie.ts
 ├── pages
 │   ├── 404.tsx
-│   ├── @
-│   │   └── [userName].tsx
 │   ├── _app.tsx
 │   ├── _document.tsx
 │   ├── dashboard.tsx
 │   ├── index.test.tsx
 │   ├── index.tsx
+│   ├── u
+│   │   ├── [userName]
+│   │   │   └── archive
+│   │   │       └── [date].tsx
+│   │   └── [userName].tsx
 │   └── watchlist.tsx
 └── users
     └── queries
