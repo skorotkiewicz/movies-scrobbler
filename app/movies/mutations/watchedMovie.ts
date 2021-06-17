@@ -12,7 +12,7 @@ export default resolver.pipe(
   async ({ movieId }, ctx) => {
     const movie = await db.userMovie.findFirst({
       where: { id: movieId, userId: ctx.session.userId },
-      select: { id: true, watched: true },
+      include: { Movie: true },
     })
 
     if (!movie) throw new NotFoundError()
@@ -20,8 +20,19 @@ export default resolver.pipe(
     await db.userMovie.update({
       where: { id: movieId },
       data: { watched: true, createdAt: new Date() },
-      // data: { watched: !movie.watched },
     })
+
+    // Add WatchTime to User Account
+    if (movie.Movie?.runtime !== "N/A") {
+      await db.user.update({
+        where: { id: ctx.session.userId! },
+        data: {
+          watchTime: {
+            increment: Number(movie.Movie?.runtime?.replace(/ min/, "")),
+          },
+        },
+      })
+    }
 
     return true
   }

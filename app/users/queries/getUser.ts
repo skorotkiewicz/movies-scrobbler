@@ -12,9 +12,9 @@ export default resolver.pipe(
   /*resolver.authorize(),*/ async ({ name }) => {
     const user = await db.user.findFirst({
       where: { name },
-      select: { id: true, name: true, email: false, role: true, isPublic: true },
+      select: { id: true, name: true, email: false, role: true, isPublic: true, watchTime: true },
     })
-
+    // FIXME dont get watchTime if profile is private
     if (!user) throw new NotFoundError()
 
     return user

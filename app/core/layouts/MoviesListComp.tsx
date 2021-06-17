@@ -50,7 +50,24 @@ const MoviesListComp = ({ user }) => {
       )}
       <div className="moviesList">
         <div className={`counter ${user?.id ? "profileDeco" : ""}`}>
-          <span>{watched ? <>Watched movies: {count}</> : <>Movies on watchlist: {count}</>}</span>
+          <span className="w">
+            {watched ? (
+              <>
+                watched movies: <span>{count}</span>
+              </>
+            ) : (
+              <>
+                movies on watchlist: <span>{count}</span>
+              </>
+            )}
+          </span>
+          <span className="w">
+            {user && watched && (
+              <>
+                watchtime: <span>{user.watchTime} min</span>
+              </>
+            )}
+          </span>
         </div>
         {moviesList.map((movie, key) => (
           <>
@@ -115,6 +132,15 @@ const MoviesListComp = ({ user }) => {
           margin-left: 20px;
           margin-top: -10px;
           margin-right: 20px;
+        }
+        .counter .w {
+          margin-right: 10px;
+        }
+        .counter .w span {
+          background-color: #444b5d;
+          border-radius: 5px;
+          padding: 1px 7px 1px 7px;
+          margin-left: -2px;
         }
         .profileDeco {
           padding-top: 10px;

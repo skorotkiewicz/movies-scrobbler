@@ -21,6 +21,7 @@ model User {
   hashedPassword String?
   role           String   @default("USER")
   isPublic       Boolean  @default(true)
+  watchTime      Int      @default(0)
 
   tokens   Token[]
   sessions Session[]

@@ -44,6 +44,20 @@ export default resolver.pipe(
       },
     })
 
+    if (!input.watchlist) {
+      // Add WatchTime to User Account
+      if (movie.runtime !== "N/A") {
+        await db.user.update({
+          where: { id: ctx.session.userId! },
+          data: {
+            watchTime: {
+              increment: Number(movie.runtime?.replace(/ min/, "")),
+            },
+          },
+        })
+      }
+    }
+
     return { Movie: movie, ...userMovie }
   }
 )

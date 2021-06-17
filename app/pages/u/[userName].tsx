@@ -22,18 +22,16 @@ export const MoviesList = () => {
           <MoviesListComp user={user} />
         </>
       ) : (
-        <h2>Private profile</h2>
+        <h2 className="profileDesc">Private profile</h2>
       )}
 
       <style jsx>{`
         .author {
           font-size: 32px;
           font-variant: small-caps;
-          /*font-family: impact, sans-serif;*/
         }
         .profileDesc {
           font-weight: 100;
-          /*margin: 10px;*/
           margin-bottom: -1px;
           border: 1px solid #ccc;
           border-radius: 10px 10px 0 0;
