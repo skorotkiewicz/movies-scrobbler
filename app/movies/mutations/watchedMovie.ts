@@ -11,7 +11,7 @@ export default resolver.pipe(
   resolver.authorize(),
   async ({ movieId }, ctx) => {
     const movie = await db.userMovie.findFirst({
-      where: { id: movieId, userId: ctx.session.userId },
+      where: { id: movieId, userId: ctx.session.userId, watched: false },
       include: { Movie: true },
     })
 
